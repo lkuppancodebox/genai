@@ -6,8 +6,8 @@ from bardapi import BardCookies
 
 def send_query_to_ai (prompt):
     cookie_dict = {
-        "__Secure-1PSID": "___enter_key__from__Cookie",
-        "__Secure-1PSIDTS": "___enter_key__from__Cookie",
+        "__Secure-1PSID": "eAiTG6zMfNtWY7YEZgkpUJLye-G3bJBF1aaeHA8YSw09NU-4jOqQg4SoeoXxF4di7ZPp_g.",
+        "__Secure-1PSIDTS": "sidts-CjEBPVxjSvJ2LtQtX3VpjT1YxN2hz_tqZGOAFpylwZpR7_CpvsOBrO_jFkssQ6bnwEb0EAA",
     }
 
     try:
@@ -21,9 +21,9 @@ def send_query_to_ai (prompt):
 def gen_prompt(topic, n) :
 
     prompt_input = '''
-    {} Quiz on the topic {}\n 
-    ### 4 options required with a correct answer ### \n
-    Required in YAML Format like below ###\n
+    {} Quiz for the topic "{}"\n 
+    ### 4 options required along with a correct answer \n
+    ### Required in YAML Format like below ###\n
     ---
     '1':
       question: ""
@@ -35,8 +35,8 @@ def gen_prompt(topic, n) :
       answer: 
     '2':
     and so on.."" \n
-    ### exclude ```yaml```
-      '''.format(n, topic)
+    ### Only YAML format. No other text required
+    '''.format(n, topic)
 
     return prompt_input
 
@@ -61,6 +61,10 @@ if __name__ == '__main__':
     topic = input("Enter Topic: ")
     n = input("Number of questions: ")
     quiz_dict = get_quiz_dict(topic, n)
+
+    if isinstance(quiz_dict, str):
+        print(quiz_dict)
+        sys.exit()
 
     print("----------------------------------------------------")
     print("\tOnline Quiz Started")
